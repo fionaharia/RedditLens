@@ -1,12 +1,23 @@
-import React from 'react';
+import React from "react";
+import { useState } from "react";
 
 const Stat = () => {
-  // Sample data (replace with real data)
   const data = {
     subscriberCount: 120000,
     rank: 34,
     description: "A community for discussing interesting questions.",
-    topSubmissions: ["Post 1", "Post 2", "Post 3"],
+    topSubmissions: [
+      {
+        score: "13.3k",
+        title: "Postttttttttttttttttttttttttttttttttttttttttt 1",
+        user: "/u/User1",
+      },
+      { score: "13.1k", title: "Post 2", user: "/u/User2" },
+      { score: "10.5k", title: "Post 3", user: "/u/User3" },
+      { score: "9.9k", title: "Post 4", user: "/u/User4" },
+      { score: "9.9k", title: "Post 5", user: "/u/User5" },
+    ],
+
     avgCommentsTopPosts: 45,
     avgUpsTopPosts: 150,
     avgCommentsPerPostLastWeek: 32,
@@ -15,82 +26,84 @@ const Stat = () => {
     bestTimeToPost: "3:00 PM - 5:00 PM",
   };
 
+  const [timeFilter, setTimeFilter] = useState("year");
+
   return (
-    <div className='container mx-auto mt-10 text-black'>
-      <h1 className='text-4xl font-bold text-center mb-8'>RedditLens Dashboard</h1>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {/* Subscriber Count */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Subscriber Count</h2>
-          <p className='text-2xl font-bold'>{data.subscriberCount}</p>
+    <div className="container mx-auto mt-10 text-gray-800">
+      <div className="flex flex-wrap gap-6">
+        <div className="p-4 bg-white shadow-md rounded-lg flex-[1_1_0%]">
+          <h2 className="text-xl font-semibold">Subscriber Count</h2>
+          <p className="text-2xl text-customOrange font-bold">
+            {data.subscriberCount}
+          </p>
         </div>
-
-        {/* Rank */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Rank</h2>
-          <p className='text-2xl font-bold'>{data.rank}</p>
+        <div className="p-4 bg-white shadow-md rounded-lg flex-[1_1_0%]">
+          <h2 className="text-xl font-semibold">Rank</h2>
+          <p className="text-2xl text-customOrange font-bold">{data.rank}</p>
         </div>
-
-        {/* Description */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Description</h2>
-          <p className='text-lg'>{data.description}</p>
+        <div className="p-4 bg-white shadow-md rounded-lg flex-[2_1_0%]">
+          <h2 className="text-xl font-semibold">Description</h2>
+          <p className="text-xl text-customOrange font-semibold">
+            {data.description}
+          </p>
         </div>
-
-        {/* Top Submissions (Filter) */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Top Submissions</h2>
-          <ul className='list-disc ml-5'>
-            {data.topSubmissions.map((submission, index) => (
-              <li key={index}>{submission}</li>
-            ))}
-          </ul>
+      </div>
+      <div className="flex flex-wrap gap-6 mt-6">
+        <div className="p-4 bg-white shadow-md rounded-lg flex-1">
+          <h2 className="text-xl font-semibold">Avg Comments (Top Posts)</h2>
+          <p className="text-2xl text-customOrange font-bold">
+            {data.avgCommentsTopPosts}
+          </p>
         </div>
-
-        {/* Average Comments on Top Posts */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Avg Comments on Top Posts</h2>
-          <p className='text-2xl font-bold'>{data.avgCommentsTopPosts}</p>
+        <div className="p-4 bg-white shadow-md rounded-lg flex-1">
+          <h2 className="text-xl font-semibold">Avg Ups (Top Posts)</h2>
+          <p className="text-2xl text-customOrange font-bold">
+            {data.avgUpsTopPosts}
+          </p>
         </div>
-
-        {/* Average Ups on Top Posts */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Avg Ups on Top Posts</h2>
-          <p className='text-2xl font-bold'>{data.avgUpsTopPosts}</p>
+        <div className="p-4 bg-white shadow-md rounded-lg flex-1">
+          <h2 className="text-xl font-semibold">Avg Comments (Last Week)</h2>
+          <p className="text-2xl text-customOrange font-bold">
+            {data.avgCommentsPerPostLastWeek}
+          </p>
         </div>
-
-        {/* Average Comments Made Per Post (Last Week) */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Avg Comments Per Post (Last Week)</h2>
-          <p className='text-2xl font-bold'>{data.avgCommentsPerPostLastWeek}</p>
+        <div className="p-4 bg-white shadow-md rounded-lg flex-1">
+          <h2 className="text-xl font-semibold">Avg Ups (Last Week)</h2>
+          <p className="text-2xl text-customOrange font-bold">
+            {data.avgUpsPerPostLastWeek}
+          </p>
         </div>
-
-        {/* Average Ups Gained Per Post (Last Week) */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Avg Ups Per Post (Last Week)</h2>
-          <p className='text-2xl font-bold'>{data.avgUpsPerPostLastWeek}</p>
+      </div>
+      <div className="bg-white h-auto mt-6 p-6 shadow-md rounded-2xl">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Top Submissions</h2>
+          <select
+            className="border rounded-md px-3 py-2"
+            value={timeFilter}
+            onChange={(e) => setTimeFilter(e.target.value)}
+          >
+            <option value="all">All time</option>
+            <option value="last year">Last Year</option>
+            <option value="last month">Last month</option>
+          </select>
         </div>
-
-        {/* Word Cloud */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Word Cloud</h2>
-          <div className='flex flex-wrap gap-2'>
-            {data.wordCloud.map((word, index) => (
-              <span
-                key={index}
-                className='px-3 py-1 bg-gray-200 rounded-full text-sm font-semibold'
+        <ul className="space-y-2">
+          {data.topSubmissions.map((submission, index) => (
+            <li key={index} className="flex items-center">
+              <div className="flex items-center space-x-2 w-24">
+                {" "}
+                <span className="text-lg text-customOrange font-semibold">{submission.score}</span>
+              </div>
+              <a
+                href="#"
+                className="text-black hover:underline truncate w-full text-left"
               >
-                {word}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Best Time to Post */}
-        <div className='p-6 bg-white shadow-md rounded-lg'>
-          <h2 className='text-xl font-semibold'>Best Time to Post</h2>
-          <p className='text-2xl font-bold'>{data.bestTimeToPost}</p>
-        </div>
+                {submission.title}
+              </a>
+              <span className="text-gray-500 ml-4">{submission.user}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
